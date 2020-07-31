@@ -25,20 +25,18 @@ public class BioSocketServiceImpl implements SocketService {
         }
     }
     private void doSocket(final Socket socket) {
-        SimplifyThreadPool.HTTP_POOL.execute(new Runnable() {
-            public void run() {
+        SimplifyThreadPool.HTTP_POOL.execute(() -> {
+            try {
+                HttpBuilder builder = new BioHttpBuilder(socket);
+                builder.builder();
+                builder.flushAndClose();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
                 try {
-                    HttpBuilder builder = new BioHttpBuilder(socket);
-                    builder.builder();
-                    builder.flushAndClose();
-                } catch (Exception e) {
+                    socket.close();
+                } catch (IOException e) {
                     e.printStackTrace();
-                }finally{
-                    try {
-                        socket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         });

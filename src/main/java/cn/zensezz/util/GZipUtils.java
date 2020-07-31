@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -15,26 +16,19 @@ public class GZipUtils {
 
     private static final String UTF_8 = "UTF-8";
 
-    /**
-     * @param data
-     * @return
-     */
-    public static final byte[] compress(String data) throws IOException {
+    public static byte[] compress(String data) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         GZIPOutputStream gzipOutputtStream = new GZIPOutputStream(out);
         try {
-            gzipOutputtStream.write(data.getBytes(UTF_8));
+            gzipOutputtStream.write(data.getBytes(StandardCharsets.UTF_8));
         } finally {
             closeQuietly(gzipOutputtStream);
         }
         return out.toByteArray();
     }
 
-    /**
-     * @param data
-     * @return
-     */
-    public static final byte[] compress(byte[] data) throws IOException {
+
+    public static byte[] compress(byte[] data) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         GZIPOutputStream gzipOutputtStream = new GZIPOutputStream(out);
         try {
@@ -49,7 +43,7 @@ public class GZipUtils {
      * @param data
      * @return
      */
-    public static final byte[] decompress(byte[] data)  {
+    public static byte[] decompress(byte[] data)  {
 
 
         try(  ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -65,12 +59,7 @@ public class GZipUtils {
         }
     }
 
-    /**
-     * @param in
-     * @return
-     * @throws IOException
-     */
-    public static final byte[] decompress(InputStream in) throws IOException {
+    public static byte[] decompress(InputStream in) throws IOException {
         ByteArrayOutputStream buffer = null;
         GZIPInputStream gizpInputStream = null;
         try {
@@ -94,7 +83,7 @@ public class GZipUtils {
                 closeable.close();
             }
         } catch (IOException ioe) {
-            // ignore
+            // todo
         }
     }
 }

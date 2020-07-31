@@ -13,7 +13,6 @@ public class GeneralFilter extends HttpFilter {
 
 	@Override
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, ApplicationFilterChain chain) throws IOException {
-		System.out.println("this is "+this.getClass().getSimpleName());
 		chain.doFilter(request, response);
 	}
 

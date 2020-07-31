@@ -7,7 +7,7 @@ import cn.zensezz.servlet.HttpServlet;
 
 import java.io.IOException;
 
-@Servlet("/test.do")
+@Servlet("/test")
 public class SimplifyTestServlet extends HttpServlet {
 
 

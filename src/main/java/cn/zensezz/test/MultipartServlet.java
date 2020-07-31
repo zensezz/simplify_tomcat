@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@Servlet("/upload.do")
+@Servlet("/upload")
 public class MultipartServlet extends HttpServlet {
 
 	@Override
